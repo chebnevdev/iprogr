@@ -1,0 +1,94 @@
+<html>
+<head>
+    <title>Календарь 2021</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+		caption {
+			caption-side: top;
+			text-align: center;
+		}
+		td {
+			vertical-align: top;
+		}
+
+    </style>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+
+				var today = new Date();
+				var year = [[${year}]];
+				var columns = 4;
+
+				document.write('<table cellpadding="25">');
+				document.write('<caption>' + year + '</caption>');
+
+				var month = 0;
+
+				for (var line = 0; ; line++) {
+
+					document.write('<tr>');
+					for (var column = 0; column < columns; column++) {
+						document.write('<td>');
+						calendar(year, month++);
+						document.write('</td>');
+					}
+					document.write('</tr>');
+
+					if (month == 12)
+						break;
+				}
+				document.write('</table>');
+
+				function calendar(year, month) {
+
+					var firstDayOfWeek = new Date(year, month, 1).getDay();
+
+					totalDays = (new Date(year, month + 1, 0)).getDate();
+
+					var months = ['Январь', 'Ферваль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
+					document.write('<table border="1">');
+					document.write('<caption>' + months[month] + '</caption>');
+					document.write('<tr><td>Пн</td><td>Вт</td><td>Ср</td><td>Чт</td><td>Пт</td><td style="background-color: red; color: white">Сб</td><td style="background-color: red; color: white">Вс</td></tr>');
+
+					document.write('<tr>');
+					if(firstDayOfWeek != 1){
+						document.write('<td colspan="' + (firstDayOfWeek == 0 ? 6 : firstDayOfWeek - 1) + '">');
+					}
+
+					for (var i = 1; i <= totalDays; i++) {
+
+						var dayOfWeekNumber = (i + firstDayOfWeek - 1) % 7;
+
+						if (year == today.getYear() + 1900 && month == today.getMonth() && i == today.getDate()) {
+							document.write('<td style="background-color: blue; color: white">' + i + '</td>');
+						} else if (dayOfWeekNumber == 0 || dayOfWeekNumber == 6) {
+							document.write('<td style="background-color: red; color: white">' + i + '</td>');
+						} else {
+							document.write('<td>' + i + '</td>');
+						}
+
+						if(dayOfWeekNumber == 0) {
+							document.write('</tr><tr>');
+						}
+
+						if(i == totalDays && dayOfWeekNumber != 0){
+							document.write('<td colspan="' + (7 - dayOfWeekNumber) + '"></td>');
+						}
+
+					}
+					document.write('</tr>');
+					document.write('</table>');
+				}
+
+
+
+    </script>
+
+</body>
+
+</html>

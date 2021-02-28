@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <title>Обработка текста</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body style="padding: 2rem;">
+  <div>
+    <p>
+      Введите текст: <input type="text" width="800" id="text-input">
+    </p>
+    <p>
+      Результат обработки:
+    </p>
+
+    <div style="border: solid 1px black; width: 600px; text-align: left; font-weight: 600; border-radius: 10px; padding: 10px;">
+        <p>
+          Число слов: <span id="words-count-label"> </span>
+        </p>
+        <p>
+          Самое длинное: <span id="longest-word-label"> </span>
+        </p>
+        <p>
+          Самое короткое: <span id="shortest-word-label"> </span>
+        </p>
+        <p>
+          Обратный порядок: <span id="backwards-order-label"> </span>
+        </p>
+    </div>
+    <input style="margin: 10px 0 0 0;" type="button" value="Обработать" onclick="execute()">
+    <input style="margin: 10px 0 0 10px;" type="button" value="Заново" onclick="clear()">
+  </div>
+
+  <script>
+
+    var input = document.getElementById('text-input');
+
+    var wordsCountLabel = document.getElementById('words-count-label');
+    var longestWordLabel = document.getElementById('longest-word-label');
+    var shortestWordLabel = document.getElementById('shortest-word-label');
+    var backwardsOrderLabel = document.getElementById('backwards-order-label');
+
+  	function execute(){
+
+  	  var text = input.value;
+  	  var words = text.split(' ');
+  	  wordsCountLabel.innerHTML = words.length;
+
+  	  var longestElement=words[0];
+  	  var shortestElement=words[0];
+
+  	  for(var i = 1; i < words.length; i++){
+  	  	if (longestElement.length < words[i].length) {
+          longestElement = words[i];
+  	  	} else if (shortestElement.length > words[i].length) {
+          shortestElement = words[i];
+        }
+  	  }
+  	  longestWordLabel.innerHTML = longestElement;
+  	  shortestWordLabel.innerHTML = shortestElement;
+  	  backwardsOrderLabel.innerHTML = words.reverse().join(' ');
+  	}
+
+  	function clear(){
+  	  wordsCountLabel.innerHTML= '';
+  	  longestWordLabel.innerHTML= '';
+  	  shortestWordLabel.innerHTML= '';
+  	  backwardsOrderLabel.innerHTML='';
+  	  input.value='';
+  	}
+	</script>
+</body>
+</html>

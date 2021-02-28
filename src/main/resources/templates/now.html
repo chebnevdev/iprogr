@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=“UTF-8”>
+    <title>Текущий момент</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+    body {
+      background: #ffddee;
+    }
+        .element {
+          color: #ff6622;
+            margin: 2px;
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body onload="setInterval('timer()', 1000)">
+
+    <div style="border: solid 1px #ff6622; width: 150px; padding: 2rem; text-align: center; font-weight: 600; border-radius: 10px; margin: auto">
+        <p class="element" id="id_year">Год</p>
+        <p class="element" id="id_date">Число</p>
+        <p class="element" id="id_month">Месяц</p>
+        <p class="element" id="id_day">День недели</p>
+        <p class="element" id="id_time">Часы : минуты : секунды</p>
+    </div>
+    <script>
+
+      yearLabel = document.getElementById('id_year');
+      dateLabel = document.getElementById('id_date');
+      monthLabel = document.getElementById('id_month');
+      dayLabel = document.getElementById('id_day');
+      timeLabel = document.getElementById('id_time');
+
+      var m_names=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря']
+      var d_week=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота']
+
+      function timer(){
+
+          var dt = new Date();
+
+          yearLabel.innerText = dt.getFullYear();
+          dateLabel.innerText = dt.getDate();
+          monthLabel.innerText = m_names[dt.getMonth()];
+          dayLabel.innerText = d_week[dt.getDay()];
+          timeLabel.innerText = dt.getHours().pad() + ' : ' + dt.getMinutes().pad() + ' : ' + dt.getSeconds().pad();
+
+      }
+
+      Number.prototype.pad = function(size) {
+        var s = String(this);
+        while (s.length < (size || 2)) {s = "0" + s;}
+        return s;
+      }
+
+    </script>
+</body>
+</html>

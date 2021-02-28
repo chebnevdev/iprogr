@@ -1,0 +1,32 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.ofg">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Визитка</title>
+</head>
+<body>
+    <table border=1>
+        <th:block th:each="i: ${#numbers.sequence(1, lines)}">
+            <tr>
+                <th:block th:each="i: ${#numbers.sequence(1, columns)}">
+                    <td>
+                        <table border=1>
+                            <tr>
+                                <td>
+                                    <img src="REU.jpg" th:src="@{REU.jpg}" width=100 height=100>
+                                </td>
+                                <td align=center style="padding: 1rem;">
+                                    <span style="font-size:20px;font-weight:300">416M</span>
+                                    <br><span th:text="${name + ' ' + surname}"/>
+                                    <br><span th:text="${email}"/>
+                                    <br><span th:text="${telephone}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </th:block>
+            </tr>
+        </th:block>
+    </table>
+</body>
+</html>

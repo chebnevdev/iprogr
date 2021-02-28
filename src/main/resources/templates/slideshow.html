@@ -1,0 +1,56 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.ofg">
+<head>
+    <meta charset=“UTF-8”>
+    <title>Слайд-шоу</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div style="text-align:center; padding: 4rem;">
+
+        <img th:src="${imageUrls[0]}" style="height: 600px; width: auto; margin-bottom: 3rem;" name="slide"> <br>
+        <input type="button" style="margin: 0.3rem; width: 100px;" value="Старт" onclick="start()">
+        <input type="button" style="margin: 0.3rem; width: 100px;" value="Стоп" onclick="stop()"> <br>
+        <input type="button" style="margin: 0.3rem; width: 100px;" value="1 сек" onclick="withInterval(1000)">
+        <input type="button" style="margin: 0.3rem; width: 100px;" value="2 сек" onclick="withInterval(2000)">
+        <input type="button" style="margin: 0.3rem; width: 100px;" value="3 сек" onclick="withInterval(3000)">
+
+    </div>
+
+    <script th:inline="javascript">
+
+        var timer = null;
+        var interval = 1000;
+        var i = 0;
+        var imageUrls = [[${imageUrls}]];
+        console.log(imageUrls);
+
+        function nextImg() {
+        	i++;
+        	if (i >= imageUrls.length)
+        	    i=0;
+
+        	document.slide.src=imageUrls[i];
+        }
+
+        function start() {
+            if (!timer)
+                timer = setInterval(nextImg, interval);
+        }
+
+        function stop() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+
+        function withInterval(newInterval) {
+            interval = newInterval;
+            stop();
+            start();
+        }
+
+    </script>
+</body>
+</html>
